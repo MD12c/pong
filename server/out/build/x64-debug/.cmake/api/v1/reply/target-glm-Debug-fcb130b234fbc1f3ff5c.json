@@ -1,11 +1,5 @@
 {
 	"abstract" : true,
-	"artifacts" : 
-	[
-		{
-			"path" : "C:/Users/danie/OneDrive/Desktop/C++/Pong/server/server/include/lib/glfw3.lib"
-		}
-	],
 	"backtrace" : 1,
 	"backtraceGraph" : 
 	{
@@ -25,7 +19,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 25,
+				"line" : 51,
 				"parent" : 0
 			}
 		]
@@ -35,16 +29,13 @@
 		"major" : 2,
 		"minor" : 9
 	},
-	"id" : "glfw::@d19778d2e34a1e3ddfc0",
-	"imported" : true,
-	"local" : true,
-	"name" : "glfw",
-	"nameOnDisk" : "glfw3.lib",
+	"id" : "glm::@d19778d2e34a1e3ddfc0",
+	"name" : "glm",
 	"paths" : 
 	{
 		"build" : "server",
 		"source" : "server"
 	},
 	"sources" : [],
-	"type" : "STATIC_LIBRARY"
+	"type" : "INTERFACE_LIBRARY"
 }

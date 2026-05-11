@@ -55,6 +55,12 @@
 },
 {
   "directory": "C:/Users/danie/OneDrive/Desktop/C++/Pong/server/out/build/x64-debug",
+  "command": "C:\\PROGRA~1\\MICROS~4\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -IC:\\Users\\danie\\OneDrive\\Desktop\\C++\\Pong\\server\\server\\include\\imgui -external:IC:\\Users\\danie\\OneDrive\\Desktop\\C++\\Pong\\server\\server\\include\\libraries -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI /Foserver\\CMakeFiles\\pong.dir\\src\\bar.cpp.obj /Fdserver\\CMakeFiles\\pong.dir\\ /FS -c C:\\Users\\danie\\OneDrive\\Desktop\\C++\\Pong\\server\\server\\src\\bar.cpp",
+  "file": "C:/Users/danie/OneDrive/Desktop/C++/Pong/server/server/src/bar.cpp",
+  "output": "C:/Users/danie/OneDrive/Desktop/C++/Pong/server/out/build/x64-debug/server/CMakeFiles/pong.dir/src/bar.cpp.obj"
+},
+{
+  "directory": "C:/Users/danie/OneDrive/Desktop/C++/Pong/server/out/build/x64-debug",
   "command": "C:\\PROGRA~1\\MICROS~4\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -IC:\\Users\\danie\\OneDrive\\Desktop\\C++\\Pong\\server\\server\\include\\libraries /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -ZI /Foserver\\CMakeFiles\\glad.dir\\src\\glad.c.obj /Fdserver\\CMakeFiles\\glad.dir\\glad.pdb /FS -c C:\\Users\\danie\\OneDrive\\Desktop\\C++\\Pong\\server\\server\\src\\glad.c",
   "file": "C:/Users/danie/OneDrive/Desktop/C++/Pong/server/server/src/glad.c",
   "output": "C:/Users/danie/OneDrive/Desktop/C++/Pong/server/out/build/x64-debug/server/CMakeFiles/glad.dir/src/glad.c.obj"

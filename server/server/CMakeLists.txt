@@ -10,6 +10,8 @@ add_executable (${PROJECT_NAME}
     "src/Graphics/Window.cpp" "src/Graphics/Window.h"
     "src/Graphics/Camera.cpp" "src/Graphics/Camera.h"
     "src/Graphics/ImguiSetup.cpp" "src/Graphics/ImguiSetup.h"
+
+    "src/bar.cpp" "src/bar.h"
 )
 
 message(STATUS "Shader source dir: ${CMAKE_CURRENT_SOURCE_DIR}/src/Assets/Shaders")

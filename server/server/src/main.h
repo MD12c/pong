@@ -30,4 +30,6 @@
 #include"Graphics/Camera.h"
 #include"Graphics/ImguiSetup.h"
 
+#include"bar.h"
+
 // TODO: Reference additional headers your program requires here.

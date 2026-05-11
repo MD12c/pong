@@ -25,8 +25,8 @@ int main()
 	Shader defShader("Assets/shaders/default.vert", "Assets/shaders/default.frag");
 	defShader.Activate();
 
-	Imgui imgui(VIEWPORT.getWindow());
-	imgui.CreateContext();
+	//Imgui imgui(VIEWPORT.getWindow());
+	//imgui.CreateContext();
 
 	VAO bar1VAO;
 	bar1VAO.Bind();
@@ -40,22 +40,24 @@ int main()
 	Texture bar1Text("Assets/Textures/canion1.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
 	bar1Text.Bind();
 	bar1Text.texUnit(defShader, "tex0", 0);
-
+	bar1Text.Unbind(); bar1EBO.Unbind(); bar1VBO.Unbind(); bar1VAO.Unbind();
+	
 	GLint modelLoc = glGetUniformLocation(defShader.ID, "translated");
 	GLint colorLoc = glGetUniformLocation(defShader.ID, "Color");
-
-	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	glUniform3fv(colorLoc, 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
+
+	Bar bar1(GLFW_KEY_W, GLFW_KEY_S);
 
 	while (!glfwWindowShouldClose(VIEWPORT.getWindow())) {
 		VIEWPORT.glClearCurrentColor();
 		//imgui.ShowDockSpace();
-
 		glClear(GL_COLOR_BUFFER_BIT);
 
+
+		bar1VAO.Bind(); bar1VBO.Bind(); bar1EBO.Bind(); bar1Text.Bind();
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar1.translate()));
 		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
+		bar1Text.Unbind(); bar1EBO.Unbind(); bar1VBO.Unbind(); bar1VAO.Unbind();
 
 		//ImGui::Begin("Template");
 			//ImGui::ShowDemoWindow();
@@ -65,10 +67,10 @@ int main()
 		glfwPollEvents();
 	}
 
-	
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
+
+	//ImGui_ImplOpenGL3_Shutdown();
+	//ImGui_ImplGlfw_Shutdown();
+	//ImGui::DestroyContext();
 	defShader.Delete();
 	bar1Text.Delete();
 	bar1EBO.Delete();
