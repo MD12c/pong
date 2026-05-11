@@ -1,13 +1,19 @@
 ﻿#include "main.h"
-constexpr unsigned int width = 900;
+constexpr unsigned int width = 1500;
 constexpr unsigned int height = 900;
 
-GLfloat triangle[9] = {
-	-1.0f, -1.0f, 0.0f,
-	 0.0f,  1.0f, 0.0f,
-	 1.0f, -1.0f, 0.0f
+GLfloat barH = 0.4f;
+GLfloat barW = 0.1f;
+GLfloat bar[20] = {
+	-barW/2, barH/2, 0.0f, 0.0f, 0.0f,
+	 barW/2, barH/2, 0.0f, 0.0f, 1.0f,
+	-barW/2,-barH/2, 0.0f, 1.0f, 0.0f,
+	 barW/2,-barH/2, 0.0f, 1.0f, 1.0f
 };
-
+GLuint indices [6] = {
+	0, 1, 2,
+	1, 3, 2
+};
 
 int main()
 {
@@ -22,15 +28,18 @@ int main()
 	Imgui imgui(VIEWPORT.getWindow());
 	imgui.CreateContext();
 
-	VAO triangleVAO;
-	triangleVAO.Bind();
-	VBO triangleVBO(triangle, sizeof(triangle));
-	triangleVBO.Bind();
-	triangleVAO.LinkAttrib(triangleVBO, 0, 3, GL_FLOAT, 3 * sizeof(float), (void*)0);
+	VAO bar1VAO;
+	bar1VAO.Bind();
+	VBO bar1VBO(bar, sizeof(bar));
+	bar1VBO.Bind();
+	bar1VAO.LinkAttrib(bar1VBO, 0, 3, GL_FLOAT, 5 * sizeof(float), (void*)0);
+	bar1VAO.LinkAttrib(bar1VBO, 1, 2, GL_FLOAT, 5 * sizeof(float), (void*)(sizeof(GLfloat) * 3));
+	EBO bar1EBO(indices, sizeof(indices));
+	bar1EBO.Bind();
 
-	Texture triangleTexture("Assets/Textures/canion1.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-	triangleTexture.Bind();
-	triangleTexture.texUnit(defShader, "tex0", 0);
+	Texture bar1Text("Assets/Textures/canion1.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+	bar1Text.Bind();
+	bar1Text.texUnit(defShader, "tex0", 0);
 
 	GLint modelLoc = glGetUniformLocation(defShader.ID, "translated");
 	GLint colorLoc = glGetUniformLocation(defShader.ID, "Color");
@@ -42,25 +51,28 @@ int main()
 
 	while (!glfwWindowShouldClose(VIEWPORT.getWindow())) {
 		VIEWPORT.glClearCurrentColor();
-		imgui.ShowDockSpace();
+		//imgui.ShowDockSpace();
 
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		
-		ImGui::Begin("Template");
-			ImGui::ShowDemoWindow();
-		ImGui::End();
-		imgui.RenderDockSpace();
+		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
+
+		//ImGui::Begin("Template");
+			//ImGui::ShowDemoWindow();
+		//ImGui::End();
+		//imgui.RenderDockSpace();
 		glfwSwapBuffers(VIEWPORT.getWindow());
 		glfwPollEvents();
 	}
+
+	
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 	defShader.Delete();
-	triangleTexture.Delete();
-	triangleVBO.Delete();
-	triangleVAO.Delete();
+	bar1Text.Delete();
+	bar1EBO.Delete();
+	bar1VBO.Delete();
+	bar1VAO.Delete();
 	return 0;
 }
