@@ -1,0 +1,23 @@
+# ninja log v6
+52	199	8002238951645181	server/CMakeFiles/pong.dir/src/Graphics/VBO.cpp.obj	4851416005db71b7
+49	202	8002238951599024	server/CMakeFiles/pong.dir/src/Graphics/VAO.cpp.obj	39ef2415c2396899
+46	204	8002238951581597	server/CMakeFiles/pong.dir/src/Graphics/EBO.cpp.obj	f0554791e10b1bca
+69	583	8002238951799520	server/CMakeFiles/pong.dir/src/Graphics/ImguiSetup.cpp.obj	9939ade132c483f9
+13	591	8002238951257684	server/CMakeFiles/stb.dir/src/stb.cpp.obj	a0a89fe8129151a1
+25	679	8002238951363736	server/CMakeFiles/imgui.dir/include/imgui/imgui_tables.cpp.obj	f739b590a79615d4
+10	714	8002238951214643	server/CMakeFiles/glad.dir/src/glad.c.obj	14f7dcf535ef236f
+37	720	8002238951481126	server/CMakeFiles/imgui.dir/include/imgui/imgui_impl_opengl3.cpp.obj	28284d5589ce23d9
+592	720	8002238957022953	server/stb.lib	1a38f2f0ababf396
+22	721	8002238951313921	server/CMakeFiles/imgui.dir/include/imgui/imgui_demo.cpp.obj	999429f8c6511e81
+715	764	8002238958264911	server/glad.lib	90445f054faf125e
+20	820	8002238951313921	server/CMakeFiles/imgui.dir/include/imgui/imgui_draw.cpp.obj	52f63def53c0bec6
+29	874	8002238951396294	server/CMakeFiles/imgui.dir/include/imgui/imgui_widgets.cpp.obj	af2e8125f31a6648
+32	945	8002238951430897	server/CMakeFiles/imgui.dir/include/imgui/imgui_impl_glfw.cpp.obj	bf7c91d0e0050910
+17	1281	8002238951290464	server/CMakeFiles/imgui.dir/include/imgui/imgui.cpp.obj	781aefb4f06d7359
+60	1286	8002238951700149	server/CMakeFiles/pong.dir/src/Graphics/Texture.cpp.obj	550a8fbef6d1b6e6
+62	1291	8002238951727393	server/CMakeFiles/pong.dir/src/Graphics/Window.cpp.obj	8b5be0900d230b8b
+57	1327	8002238951645181	server/CMakeFiles/pong.dir/src/Graphics/ShaderClass.cpp.obj	776241890041fa3b
+1281	1345	8002238963932840	server/imgui.lib	493325a3edf7b216
+65	1644	8002238951778684	server/CMakeFiles/pong.dir/src/Graphics/Camera.cpp.obj	1b42cff2c2393c63
+42	2486	8002238951541428	server/CMakeFiles/pong.dir/src/main.cpp.obj	c00a27aecb3ae04e
+2487	3117	8002238975946207	server/pong.exe	a05692478ad0eab6
