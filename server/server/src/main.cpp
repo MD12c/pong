@@ -5,16 +5,16 @@ constexpr unsigned int height = 900;
 int main()
 {
 	std::cout << "Hello CMake." << std::endl;
-
+	
 	// Name of the window, width & height of the window, background color RGB
 	Window VIEWPORT("PONG", width, height, 0.1f, 0.1f, 0.1f);
 	VIEWPORT.glfwSetup();
 	Shader defShader("Assets/shaders/default.vert", "Assets/shaders/default.frag");
 	defShader.Activate();
-
+	
 	//Imgui imgui(VIEWPORT.getWindow());
 	//imgui.CreateContext();
-// Bar1
+	// Bar1
 	Bar bar1(GLFW_KEY_W, GLFW_KEY_S, 1);
 	VAO bar1VAO;
 	bar1VAO.Bind();
@@ -29,7 +29,7 @@ int main()
 	bar1Text.Bind();
 	bar1Text.texUnit(defShader, "tex0", 0);
 	bar1Text.Unbind(); bar1EBO.Unbind(); bar1VBO.Unbind(); bar1VAO.Unbind();
-// Bar2
+	// Bar2
 	Bar bar2(GLFW_KEY_P, GLFW_KEY_L, 2);
 	VAO bar2VAO;
 	bar2VAO.Bind();
@@ -39,12 +39,14 @@ int main()
 	bar2VAO.LinkAttrib(bar2VBO, 1, 2, GL_FLOAT, 5 * sizeof(float), (void*)(sizeof(GLfloat) * 3));
 	EBO bar2EBO(indices, sizeof(indices));
 	bar2EBO.Bind();
-
+	
 	Texture bar2Text("Assets/Textures/P2.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	bar2Text.Bind();
 	bar2Text.texUnit(defShader, "tex0", 0);
 	bar2Text.Unbind(); bar2EBO.Unbind(); bar2VBO.Unbind(); bar2VAO.Unbind();
-// Ball
+	// Ball
+	srand(time(0));
+	Ball::initialize();
 	VAO ballVAO;
 	ballVAO.Bind();
 	VBO ballVBO(ball, sizeof(ball));
@@ -53,7 +55,7 @@ int main()
 	ballVAO.LinkAttrib(ballVBO, 1, 2, GL_FLOAT, 5 * sizeof(float), (void*)(sizeof(GLfloat) * 3));
 	EBO ballEBO(indices, sizeof(indices));
 	ballEBO.Bind();
-
+	
 	Texture ballText("Assets/Textures/ball.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	ballText.Bind();
 	ballText.texUnit(defShader, "tex0", 0);
@@ -62,8 +64,8 @@ int main()
 	GLint modelLoc = glGetUniformLocation(defShader.ID, "translated");
 	GLint colorLoc = glGetUniformLocation(defShader.ID, "Color");
 	glUniform3fv(colorLoc, 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
-
-
+	
+	
 	while (!glfwWindowShouldClose(VIEWPORT.getWindow())) {
 		VIEWPORT.glClearCurrentColor();
 		//imgui.ShowDockSpace();
@@ -81,7 +83,7 @@ int main()
 		bar2Text.Unbind(); bar2EBO.Unbind(); bar2VBO.Unbind(); bar2VAO.Unbind();
 
 		ballVAO.Bind(); ballVBO.Bind(); ballEBO.Bind(); ballText.Bind();
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar2.translate(VIEWPORT.getWindow(), width, height)));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(Ball::translate(VIEWPORT.getWindow())));
 		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 		ballText.Unbind(); ballEBO.Unbind(); ballVBO.Unbind(); ballVAO.Unbind();
 

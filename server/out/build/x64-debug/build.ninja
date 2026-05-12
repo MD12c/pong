@@ -178,6 +178,16 @@ build server\CMakeFiles\pong.dir\src\bar.cpp.obj: CXX_COMPILER__pong_unscanned_D
   TARGET_PDB = server\pong.pdb
   TARGET_SUPPORT_DIR = server\CMakeFiles\pong.dir
 
+build server\CMakeFiles\pong.dir\src\ball.cpp.obj: CXX_COMPILER__pong_unscanned_Debug C$:\Users\danie\OneDrive\Desktop\C++\Pong\server\server\src\ball.cpp || cmake_object_order_depends_target_pong
+  CONFIG = Debug
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  INCLUDES = -IC:\Users\danie\OneDrive\Desktop\C++\Pong\server\server\include\imgui -external:IC:\Users\danie\OneDrive\Desktop\C++\Pong\server\server\include\libraries -external:W0
+  OBJECT_DIR = server\CMakeFiles\pong.dir
+  OBJECT_FILE_DIR = server\CMakeFiles\pong.dir\src
+  TARGET_COMPILE_PDB = server\CMakeFiles\pong.dir\
+  TARGET_PDB = server\pong.pdb
+  TARGET_SUPPORT_DIR = server\CMakeFiles\pong.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target pong
@@ -186,7 +196,7 @@ build server\CMakeFiles\pong.dir\src\bar.cpp.obj: CXX_COMPILER__pong_unscanned_D
 #############################################
 # Link the executable server\pong.exe
 
-build server\pong.exe: CXX_EXECUTABLE_LINKER__pong_Debug server\CMakeFiles\pong.dir\src\main.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\EBO.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\VAO.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\VBO.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\ShaderClass.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\Texture.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\Window.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\Camera.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\ImguiSetup.cpp.obj server\CMakeFiles\pong.dir\src\bar.cpp.obj | server\glad.lib C$:\Users\danie\OneDrive\Desktop\C++\Pong\server\server\include\lib\glfw3.lib server\stb.lib server\imgui.lib server\glad.lib C$:\Users\danie\OneDrive\Desktop\C++\Pong\server\server\include\lib\glfw3.lib || server\glad.lib server\imgui.lib server\stb.lib
+build server\pong.exe: CXX_EXECUTABLE_LINKER__pong_Debug server\CMakeFiles\pong.dir\src\main.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\EBO.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\VAO.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\VBO.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\ShaderClass.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\Texture.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\Window.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\Camera.cpp.obj server\CMakeFiles\pong.dir\src\Graphics\ImguiSetup.cpp.obj server\CMakeFiles\pong.dir\src\bar.cpp.obj server\CMakeFiles\pong.dir\src\ball.cpp.obj | server\glad.lib C$:\Users\danie\OneDrive\Desktop\C++\Pong\server\server\include\lib\glfw3.lib server\stb.lib server\imgui.lib server\glad.lib C$:\Users\danie\OneDrive\Desktop\C++\Pong\server\server\include\lib\glfw3.lib || server\glad.lib server\imgui.lib server\stb.lib
   CONFIG = Debug
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
