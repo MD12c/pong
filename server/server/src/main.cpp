@@ -14,7 +14,8 @@ int main()
 
 	//Imgui imgui(VIEWPORT.getWindow());
 	//imgui.CreateContext();
-
+// Bar1
+	Bar bar1(GLFW_KEY_W, GLFW_KEY_S, 1);
 	VAO bar1VAO;
 	bar1VAO.Bind();
 	VBO bar1VBO(bar, sizeof(bar));
@@ -28,7 +29,8 @@ int main()
 	bar1Text.Bind();
 	bar1Text.texUnit(defShader, "tex0", 0);
 	bar1Text.Unbind(); bar1EBO.Unbind(); bar1VBO.Unbind(); bar1VAO.Unbind();
-
+// Bar2
+	Bar bar2(GLFW_KEY_P, GLFW_KEY_L, 2);
 	VAO bar2VAO;
 	bar2VAO.Bind();
 	VBO bar2VBO(bar, sizeof(bar));
@@ -42,13 +44,25 @@ int main()
 	bar2Text.Bind();
 	bar2Text.texUnit(defShader, "tex0", 0);
 	bar2Text.Unbind(); bar2EBO.Unbind(); bar2VBO.Unbind(); bar2VAO.Unbind();
+// Ball
+	VAO ballVAO;
+	ballVAO.Bind();
+	VBO ballVBO(ball, sizeof(ball));
+	ballVBO.Bind();
+	ballVAO.LinkAttrib(ballVBO, 0, 3, GL_FLOAT, 5 * sizeof(float), (void*)0);
+	ballVAO.LinkAttrib(ballVBO, 1, 2, GL_FLOAT, 5 * sizeof(float), (void*)(sizeof(GLfloat) * 3));
+	EBO ballEBO(indices, sizeof(indices));
+	ballEBO.Bind();
+
+	Texture ballText("Assets/Textures/ball.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	ballText.Bind();
+	ballText.texUnit(defShader, "tex0", 0);
+	ballText.Unbind(); ballEBO.Unbind(); ballVBO.Unbind(); ballVAO.Unbind();
 	
 	GLint modelLoc = glGetUniformLocation(defShader.ID, "translated");
 	GLint colorLoc = glGetUniformLocation(defShader.ID, "Color");
 	glUniform3fv(colorLoc, 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
 
-	Bar bar1(GLFW_KEY_W, GLFW_KEY_S, 1);
-	Bar bar2(GLFW_KEY_P, GLFW_KEY_L, 2);
 
 	while (!glfwWindowShouldClose(VIEWPORT.getWindow())) {
 		VIEWPORT.glClearCurrentColor();
@@ -65,6 +79,11 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar2.translate(VIEWPORT.getWindow(), width, height)));
 		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 		bar2Text.Unbind(); bar2EBO.Unbind(); bar2VBO.Unbind(); bar2VAO.Unbind();
+
+		ballVAO.Bind(); ballVBO.Bind(); ballEBO.Bind(); ballText.Bind();
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar2.translate(VIEWPORT.getWindow(), width, height)));
+		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
+		ballText.Unbind(); ballEBO.Unbind(); ballVBO.Unbind(); ballVAO.Unbind();
 
 		//ImGui::Begin("Template");
 			//ImGui::ShowDemoWindow();
