@@ -2,25 +2,12 @@
 constexpr unsigned int width = 1500;
 constexpr unsigned int height = 900;
 
-GLfloat barH = 0.4f;
-GLfloat barW = 0.1f;
-GLfloat bar[20] = {
-	-barW/2, barH/2, 0.0f, 0.0f, 0.0f,
-	 barW/2, barH/2, 0.0f, 0.0f, 1.0f,
-	-barW/2,-barH/2, 0.0f, 1.0f, 0.0f,
-	 barW/2,-barH/2, 0.0f, 1.0f, 1.0f
-};
-GLuint indices [6] = {
-	0, 1, 2,
-	1, 3, 2
-};
-
 int main()
 {
 	std::cout << "Hello CMake." << std::endl;
 
 	// Name of the window, width & height of the window, background color RGB
-	Window VIEWPORT("Template", width, height, 0.7f, 0.7f, 0.7f);
+	Window VIEWPORT("PONG", width, height, 0.1f, 0.1f, 0.1f);
 	VIEWPORT.glfwSetup();
 	Shader defShader("Assets/shaders/default.vert", "Assets/shaders/default.frag");
 	defShader.Activate();
@@ -37,16 +24,31 @@ int main()
 	EBO bar1EBO(indices, sizeof(indices));
 	bar1EBO.Bind();
 
-	Texture bar1Text("Assets/Textures/canion1.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+	Texture bar1Text("Assets/Textures/P1.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	bar1Text.Bind();
 	bar1Text.texUnit(defShader, "tex0", 0);
 	bar1Text.Unbind(); bar1EBO.Unbind(); bar1VBO.Unbind(); bar1VAO.Unbind();
+
+	VAO bar2VAO;
+	bar2VAO.Bind();
+	VBO bar2VBO(bar, sizeof(bar));
+	bar2VBO.Bind();
+	bar2VAO.LinkAttrib(bar2VBO, 0, 3, GL_FLOAT, 5 * sizeof(float), (void*)0);
+	bar2VAO.LinkAttrib(bar2VBO, 1, 2, GL_FLOAT, 5 * sizeof(float), (void*)(sizeof(GLfloat) * 3));
+	EBO bar2EBO(indices, sizeof(indices));
+	bar2EBO.Bind();
+
+	Texture bar2Text("Assets/Textures/P2.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	bar2Text.Bind();
+	bar2Text.texUnit(defShader, "tex0", 0);
+	bar2Text.Unbind(); bar2EBO.Unbind(); bar2VBO.Unbind(); bar2VAO.Unbind();
 	
 	GLint modelLoc = glGetUniformLocation(defShader.ID, "translated");
 	GLint colorLoc = glGetUniformLocation(defShader.ID, "Color");
 	glUniform3fv(colorLoc, 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
 
-	Bar bar1(GLFW_KEY_W, GLFW_KEY_S);
+	Bar bar1(GLFW_KEY_W, GLFW_KEY_S, 1);
+	Bar bar2(GLFW_KEY_P, GLFW_KEY_L, 2);
 
 	while (!glfwWindowShouldClose(VIEWPORT.getWindow())) {
 		VIEWPORT.glClearCurrentColor();
@@ -55,9 +57,14 @@ int main()
 
 
 		bar1VAO.Bind(); bar1VBO.Bind(); bar1EBO.Bind(); bar1Text.Bind();
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar1.translate()));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar1.translate(VIEWPORT.getWindow(), width, height)));
 		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 		bar1Text.Unbind(); bar1EBO.Unbind(); bar1VBO.Unbind(); bar1VAO.Unbind();
+
+		bar2VAO.Bind(); bar2VBO.Bind(); bar2EBO.Bind(); bar2Text.Bind();
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar2.translate(VIEWPORT.getWindow(), width, height)));
+		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
+		bar2Text.Unbind(); bar2EBO.Unbind(); bar2VBO.Unbind(); bar2VAO.Unbind();
 
 		//ImGui::Begin("Template");
 			//ImGui::ShowDemoWindow();

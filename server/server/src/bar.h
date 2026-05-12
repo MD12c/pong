@@ -1,5 +1,6 @@
 #pragma once
 
+#include<iostream>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 #include<glm/glm.hpp>
@@ -8,14 +9,20 @@
 #include<glm/gtx/rotate_vector.hpp>
 #include<glm/gtx/vector_angle.hpp>
 
+extern GLfloat BarH;
+extern GLfloat BarW;
+extern GLfloat bar[20];
+extern GLuint indices[6];
+
 class Bar {
 private:
     int m_goUpKey;
     int m_goDownKey;
+    int m_ID;
     glm::mat4 m_model = glm::mat4(1.0f);
 public:
-    Bar(int goUpKey, int goDownKey);
+    Bar(int goUpKey, int goDownKey, int ID);
     ~Bar();
 
-    glm::mat4 translate();
+    glm::mat4 translate(GLFWwindow* window, unsigned int width, unsigned int height);
 };
