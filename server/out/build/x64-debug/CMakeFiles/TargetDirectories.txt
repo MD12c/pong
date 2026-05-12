@@ -1,8 +1,0 @@
-C:/Users/danie/OneDrive/Desktop/C++/Pong/server/out/build/x64-debug/CMakeFiles/edit_cache.dir
-C:/Users/danie/OneDrive/Desktop/C++/Pong/server/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/danie/OneDrive/Desktop/C++/Pong/server/out/build/x64-debug/server/CMakeFiles/pong.dir
-C:/Users/danie/OneDrive/Desktop/C++/Pong/server/out/build/x64-debug/server/CMakeFiles/glad.dir
-C:/Users/danie/OneDrive/Desktop/C++/Pong/server/out/build/x64-debug/server/CMakeFiles/stb.dir
-C:/Users/danie/OneDrive/Desktop/C++/Pong/server/out/build/x64-debug/server/CMakeFiles/imgui.dir
-C:/Users/danie/OneDrive/Desktop/C++/Pong/server/out/build/x64-debug/server/CMakeFiles/edit_cache.dir
-C:/Users/danie/OneDrive/Desktop/C++/Pong/server/out/build/x64-debug/server/CMakeFiles/rebuild_cache.dir

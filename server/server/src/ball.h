@@ -16,11 +16,11 @@ namespace Ball {
     extern glm::mat4 model;
 
     struct Physics {
-        float v = 0.0002f;
+        float v = 0.0003f;
         int ratio = 0;
         float x = 0.0f, y = 0.0f;  
     };
-    
+
     extern Physics ball;
     void initialize();
     glm::mat4 translate(GLFWwindow* window);

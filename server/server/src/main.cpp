@@ -91,7 +91,7 @@ int main()
 		glm::vec3 bar2Pos = bar2.getPosition();
 		glm::vec3 ballPos = Ball::getPosition();
 
-		if(bar1Pos[0] > ballPos[0] || bar2Pos[0] < ballPos[0]) {
+		if(bar1Pos[0] + barW/2 > ballPos[0] - ballR/2 || bar2Pos[0] - barW/2 < ballPos[0] + ballR/2) {
 			if(ballPos[0] < 0) {
 				if(!((bar1Pos[1] - barH/2 > ballPos[1]) || (bar1Pos[1] + barH/2 < ballPos[1]))) {
 					Ball::ball.x = -Ball::ball.x;
