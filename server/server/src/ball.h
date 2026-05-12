@@ -15,12 +15,14 @@ extern GLfloat ball[20];
 namespace Ball {
     extern glm::mat4 model;
 
-    extern struct v {
-        float v;
-        int ratio;
-        float x, y;
+    struct Physics {
+        float v = 0.0002f;
+        int ratio = 0;
+        float x = 0.0f, y = 0.0f;  
     };
-
+    
+    extern Physics ball;
     void initialize();
     glm::mat4 translate(GLFWwindow* window);
+    glm::vec3 getPosition();
 };

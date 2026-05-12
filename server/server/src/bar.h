@@ -9,8 +9,8 @@
 #include<glm/gtx/rotate_vector.hpp>
 #include<glm/gtx/vector_angle.hpp>
 
-extern GLfloat BarH;
-extern GLfloat BarW;
+extern GLfloat barH;
+extern GLfloat barW;
 extern GLfloat bar[20];
 extern GLuint indices[6];
 
@@ -25,4 +25,5 @@ public:
     ~Bar();
 
     glm::mat4 translate(GLFWwindow* window, unsigned int width, unsigned int height);
+    glm::vec3 getPosition();
 };

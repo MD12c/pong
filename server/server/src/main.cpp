@@ -87,6 +87,22 @@ int main()
 		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 		ballText.Unbind(); ballEBO.Unbind(); ballVBO.Unbind(); ballVAO.Unbind();
 
+		glm::vec3 bar1Pos = bar1.getPosition();
+		glm::vec3 bar2Pos = bar2.getPosition();
+		glm::vec3 ballPos = Ball::getPosition();
+
+		if(bar1Pos[0] > ballPos[0] || bar2Pos[0] < ballPos[0]) {
+			if(ballPos[0] < 0) {
+				if(!((bar1Pos[1] - barH/2 > ballPos[1]) || (bar1Pos[1] + barH/2 < ballPos[1]))) {
+					Ball::ball.x = -Ball::ball.x;
+				}
+			} else {
+				if(!((bar2Pos[1] - barH/2 > ballPos[1]) || (bar2Pos[1] + barH/2 < ballPos[1]))) {
+					Ball::ball.x = -Ball::ball.x;
+				}
+			}
+		}
+
 		//ImGui::Begin("Template");
 			//ImGui::ShowDemoWindow();
 		//ImGui::End();
