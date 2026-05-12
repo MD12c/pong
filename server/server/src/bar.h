@@ -24,6 +24,6 @@ public:
     Bar(int goUpKey, int goDownKey, int ID);
     ~Bar();
 
-    glm::mat4 translate(GLFWwindow* window, unsigned int width, unsigned int height);
+    glm::mat4 translate(GLFWwindow* window, unsigned int width, unsigned int height, float dT);
     glm::vec3 getPosition();
 };

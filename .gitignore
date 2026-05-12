@@ -361,3 +361,38 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# CMake
+CMakeFiles/
+cmake_install.cmake
+CMakeCache.txt
+Makefile
+*.cmake
+build/
+out/
+
+# Dependencies/Libraries
+lib/
+include/
+*.lib
+*.a
+
+# Compiled binaries
+*.exe
+*.dll
+*.so
+*.dylib
+
+# IDE
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated files
+*.o
+*.d

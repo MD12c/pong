@@ -65,25 +65,31 @@ int main()
 	GLint colorLoc = glGetUniformLocation(defShader.ID, "Color");
 	glUniform3fv(colorLoc, 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
 	
+	float dT = 0.0f;
+	float lastFrame = 0.0f;
 	
 	while (!glfwWindowShouldClose(VIEWPORT.getWindow())) {
 		VIEWPORT.glClearCurrentColor();
 		//imgui.ShowDockSpace();
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		float crntFrame = static_cast<float>(glfwGetTime());
+    	dT = crntFrame - lastFrame;
+	    lastFrame = crntFrame;
+
 
 		bar1VAO.Bind(); bar1VBO.Bind(); bar1EBO.Bind(); bar1Text.Bind();
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar1.translate(VIEWPORT.getWindow(), width, height)));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar1.translate(VIEWPORT.getWindow(), width, height, dT)));
 		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 		bar1Text.Unbind(); bar1EBO.Unbind(); bar1VBO.Unbind(); bar1VAO.Unbind();
 
 		bar2VAO.Bind(); bar2VBO.Bind(); bar2EBO.Bind(); bar2Text.Bind();
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar2.translate(VIEWPORT.getWindow(), width, height)));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar2.translate(VIEWPORT.getWindow(), width, height, dT)));
 		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 		bar2Text.Unbind(); bar2EBO.Unbind(); bar2VBO.Unbind(); bar2VAO.Unbind();
 
 		ballVAO.Bind(); ballVBO.Bind(); ballEBO.Bind(); ballText.Bind();
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(Ball::translate(VIEWPORT.getWindow())));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(Ball::translate(VIEWPORT.getWindow(), dT)));
 		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 		ballText.Unbind(); ballEBO.Unbind(); ballVBO.Unbind(); ballVAO.Unbind();
 

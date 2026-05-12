@@ -25,12 +25,12 @@ if(m_ID == 2)
 
 };
 
-glm::mat4 Bar::translate(GLFWwindow* window, unsigned int width, unsigned int height) {
+glm::mat4 Bar::translate(GLFWwindow* window, unsigned int width, unsigned int height, float dT) {
     if(glfwGetKey(window, m_goUpKey) == GLFW_PRESS && m_model[3][1] + barH/2 <= 1){
-    	m_model = glm::translate(m_model, glm::vec3(0.0f, 0.0005f, 0.0f));
+    	m_model = glm::translate(m_model, glm::vec3(0.0f, 1.0f * dT, 0.0f));
     }
     if(glfwGetKey(window, m_goDownKey) == GLFW_PRESS && m_model[3][1] - barH/2 >= -1){
-    	m_model = glm::translate(m_model, glm::vec3(0.0f, -0.0005f, 0.0f));
+    	m_model = glm::translate(m_model, glm::vec3(0.0f, -1.0f * dT, 0.0f));
     }
     return m_model;
 }

@@ -21,15 +21,17 @@ namespace Ball {
         std::cout << ball.ratio;
     }
     
-    glm::mat4 translate(GLFWwindow* window) {
-        if(model[3][0] + ballR/2 < -1 || model[3][0] - ballR/2 > 1){
-            // Game over
-        }
+    glm::mat4 translate(GLFWwindow* window, float dT) {
+        if(model[3][0] + ballR/2 < -1 || model[3][0] - ballR/2 > 1){/* Game over*/ }
         if(model[3][1] + ballR/2 <= 1 && model[3][1] - ballR/2 >= -1){
-    	    model = glm::translate(model, glm::vec3(ball.x, ball.y, 0.0f));
+            float moveX = ball.x * dT;
+            float moveY = ball.y * dT;
+    	    model = glm::translate(model, glm::vec3(moveX, moveY, 0.0f));
         } else {
             ball.y = -ball.y;
-    	    model = glm::translate(model, glm::vec3(ball.x, ball.y, 0.0f));
+            float moveX = ball.x * dT;
+            float moveY = ball.y * dT;
+    	    model = glm::translate(model, glm::vec3(moveX, moveY, 0.0f));
         }
         return model;
     }
