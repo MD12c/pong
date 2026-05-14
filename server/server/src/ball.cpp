@@ -15,7 +15,7 @@ namespace Ball {
     Physics ball;
     
     void initialize() {
-        ball.ratio = 100 - (rand() % 1);
+        ball.ratio = 100 - (rand() % 50);
         ball.x = (ball.v * ball.ratio) / 100;
         ball.y = ball.v - ball.x;
         std::cout << ball.ratio;
