@@ -35,8 +35,8 @@ glm::mat4 Bar::translate(GLFWwindow* window, unsigned int width, unsigned int he
     return m_model;
 }
 
-glm::vec3 Bar::getPosition() {
-    return glm::vec3(m_model[3][0], m_model[3][1], 0.0f);
+glm::vec2 Bar::getPosition() {
+    return glm::vec2(m_model[3][0], m_model[3][1]);
 }
 
 Bar::~Bar(){};

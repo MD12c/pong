@@ -14,7 +14,9 @@ int main()
 	
 	//Imgui imgui(VIEWPORT.getWindow());
 	//imgui.CreateContext();
-	// Bar1
+
+// Bar1
+#pragma region
 	Bar bar1(GLFW_KEY_W, GLFW_KEY_S, 1);
 	VAO bar1VAO;
 	bar1VAO.Bind();
@@ -29,7 +31,10 @@ int main()
 	bar1Text.Bind();
 	bar1Text.texUnit(defShader, "tex0", 0);
 	bar1Text.Unbind(); bar1EBO.Unbind(); bar1VBO.Unbind(); bar1VAO.Unbind();
-	// Bar2
+#pragma endregion
+
+// Bar2
+#pragma region
 	Bar bar2(GLFW_KEY_P, GLFW_KEY_L, 2);
 	VAO bar2VAO;
 	bar2VAO.Bind();
@@ -44,7 +49,10 @@ int main()
 	bar2Text.Bind();
 	bar2Text.texUnit(defShader, "tex0", 0);
 	bar2Text.Unbind(); bar2EBO.Unbind(); bar2VBO.Unbind(); bar2VAO.Unbind();
-	// Ball
+#pragma endregion
+
+// Ball
+#pragma region
 	srand(time(0));
 	Ball::initialize();
 	VAO ballVAO;
@@ -60,6 +68,7 @@ int main()
 	ballText.Bind();
 	ballText.texUnit(defShader, "tex0", 0);
 	ballText.Unbind(); ballEBO.Unbind(); ballVBO.Unbind(); ballVAO.Unbind();
+#pragma endregion
 	
 	GLint modelLoc = glGetUniformLocation(defShader.ID, "translated");
 	GLint colorLoc = glGetUniformLocation(defShader.ID, "Color");
@@ -77,7 +86,8 @@ int main()
     	dT = crntFrame - lastFrame;
 	    lastFrame = crntFrame;
 
-
+	// visuals
+	#pragma region
 		bar1VAO.Bind(); bar1VBO.Bind(); bar1EBO.Bind(); bar1Text.Bind();
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar1.translate(VIEWPORT.getWindow(), width, height, dT)));
 		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
@@ -92,20 +102,24 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(Ball::translate(VIEWPORT.getWindow(), dT)));
 		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 		ballText.Unbind(); ballEBO.Unbind(); ballVBO.Unbind(); ballVAO.Unbind();
+	#pragma endregion
 
-		glm::vec3 bar1Pos = bar1.getPosition();
-		glm::vec3 bar2Pos = bar2.getPosition();
-		glm::vec3 ballPos = Ball::getPosition();
+		glm::vec2 bar1Pos = bar1.getPosition();
+		glm::vec2 bar2Pos = bar2.getPosition();
+		glm::vec2 ballPos = Ball::getPosition();
 
-		if(bar1Pos[0] + barW/2 > ballPos[0] - ballR/2 || bar2Pos[0] - barW/2 < ballPos[0] + ballR/2) {
-			if(ballPos[0] < 0) {
-				if(!((bar1Pos[1] - barH/2 > ballPos[1]) || (bar1Pos[1] + barH/2 < ballPos[1]))) {
-					Ball::ball.x = -Ball::ball.x;
-				}
-			} else {
-				if(!((bar2Pos[1] - barH/2 > ballPos[1]) || (bar2Pos[1] + barH/2 < ballPos[1]))) {
-					Ball::ball.x = -Ball::ball.x;
-				}
+		// outside x
+		if(bar1Pos[0] + barW/2 > ballPos[0] - ballD/2) {
+			if(!((bar1Pos[1] - barH/2 > ballPos[1]) || (bar1Pos[1] + barH/2 < ballPos[1]))) {
+				Ball::ball.x = std::abs(Ball::ball.x) * 1.1f;
+				Ball::model[3][0] = -1 + barW + ballD/2;
+			}
+		}
+		
+		if(bar2Pos[0] - barW/2 < ballPos[0] + ballD/2) {
+			if(!((bar2Pos[1] - barH/2 > ballPos[1]) || (bar2Pos[1] + barH/2 < ballPos[1]))) {
+				Ball::ball.x = -std::abs(Ball::ball.x) * 1.1f;
+				Ball::model[3][0] = 1 - barW - ballD/2;
 			}
 		}
 

@@ -9,7 +9,7 @@
 #include<glm/gtx/rotate_vector.hpp>
 #include<glm/gtx/vector_angle.hpp>
 
-extern GLfloat ballR;
+extern GLfloat ballD; // ball diameter
 extern GLfloat ball[20];
 
 namespace Ball {
@@ -17,12 +17,12 @@ namespace Ball {
 
     struct Physics {
         float v = 1.0f;
-        int ratio = 0;
-        float x = 0.0f, y = 0.0f;  
+        int ratio = 0; // starting angle
+        float x = 0.0f, y = 0.0f;
     };
 
     extern Physics ball;
     void initialize();
     glm::mat4 translate(GLFWwindow* window, float dT);
-    glm::vec3 getPosition();
+    glm::vec2 getPosition();
 };
