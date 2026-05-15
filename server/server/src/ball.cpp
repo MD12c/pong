@@ -22,7 +22,6 @@ namespace Ball {
     }
     
     glm::mat4 translate(GLFWwindow* window, float dT) {
-        if(model[3][0] + ballD/2 < -1 || model[3][0] - ballD/2 > 1){/* Game over*/ }
         float crntY = model[3][1];
 
         if(crntY + ballD/2 >= 1){

@@ -108,6 +108,11 @@ int main()
 		glm::vec2 bar2Pos = bar2.getPosition();
 		glm::vec2 ballPos = Ball::getPosition();
 
+        if(Ball::model[3][0] + ballD/2 < -1 || Ball::model[3][0] - ballD/2 > 1) {
+			std::cout << "\nGame over";
+			return 0;
+		}
+
 		// outside x
 		if(bar1Pos[0] + barW/2 > ballPos[0] - ballD/2) {
 			if(!((bar1Pos[1] - barH/2 > ballPos[1]) || (bar1Pos[1] + barH/2 < ballPos[1]))) {
