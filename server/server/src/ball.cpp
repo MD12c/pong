@@ -15,14 +15,13 @@ namespace Ball {
     Physics ball;
     
     void initialize() {
-        ball.ratio = 100 - (rand() % 1);
+        ball.ratio = 100 - (rand() % 50);
         ball.x = (ball.v * ball.ratio) / 100;
         ball.y = ball.v - ball.x;
         std::cout << ball.ratio;
     }
     
     glm::mat4 translate(GLFWwindow* window, float dT) {
-        if(model[3][0] + ballD/2 < -1 || model[3][0] - ballD/2 > 1){/* Game over*/ }
         float crntY = model[3][1];
 
         if(crntY + ballD/2 >= 1){
