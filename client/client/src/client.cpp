@@ -7,6 +7,7 @@ Client::Client() {
     wsaerr = WSAStartup(wVersionRequested, &wsaData);
 
     if(wsaerr != 0) {
+        std::cout << WSAGetLastError() << std::endl;
         throw std::runtime_error("Failed to initialize Winsock");
     } else {
         std::cout << "Winsock initialized successfully" << std::endl;
@@ -15,18 +16,12 @@ Client::Client() {
     socketID = socket(AF_INET, SOCK_STREAM, 0);
 
     if(socketID == INVALID_SOCKET) {
+        std::cout << WSAGetLastError() << std::endl;
         WSACleanup();
         throw std::runtime_error("Failed to create socket");
     } else {
         std::cout << "Socket created successfully" << std::endl;
     }
-
-    struct sockaddr_in addr = {
-        .sin_family = AF_INET,
-        .sin_port   = htons(8080),
-    };
-
-    inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr);
 }
 
 Client::~Client() {
@@ -34,6 +29,16 @@ Client::~Client() {
     WSACleanup();
 }
 
-void Client::connect() {
-    // Connection implementation
+void Client::search() {
+    sockaddr_in clientAddr;
+    clientAddr.sin_family = AF_INET;
+    inet_pton(AF_INET, "127.0.0.1", &clientAddr.sin_addr);
+    clientAddr.sin_port = htons(55555);
+    int connecterr = connect(socketID, (SOCKADDR*)&clientAddr, sizeof(clientAddr));
+
+    if(connecterr != 0) {
+        std::cout << WSAGetLastError() << std::endl;
+        WSACleanup;
+        throw std::runtime_error("Failed to connect socket");
+    }
 }

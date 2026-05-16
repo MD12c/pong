@@ -12,5 +12,5 @@ public:
     Client();
     ~Client();
 
-    void connect();
+    void search();
 };

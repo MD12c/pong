@@ -11,7 +11,7 @@ class Server {
 public:
 
     SOCKET socketID = INVALID_SOCKET;
-    Server();
+    Server(int port);
     ~Server();
 
     SOCKET standby();
