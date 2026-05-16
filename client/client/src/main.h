@@ -3,7 +3,10 @@
 
 #pragma once
 
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #include<iostream>
+#include <stdexcept>
 #include"imgui.h"
 #include"imgui_internal.h"
 #include"imgui_impl_glfw.h"

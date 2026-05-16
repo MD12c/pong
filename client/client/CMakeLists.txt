@@ -13,6 +13,7 @@ add_executable (${PROJECT_NAME}
 
     "src/bar.cpp" "src/bar.h"
     "src/ball.cpp" "src/ball.h"
+    "src/client.cpp" "src/client.h"
 )
 
 message(STATUS "Shader source dir: ${CMAKE_CURRENT_SOURCE_DIR}/src/Assets/Shaders")
