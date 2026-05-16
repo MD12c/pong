@@ -16,18 +16,28 @@ Server::Server() {
     socketID = socket(AF_INET, SOCK_STREAM, 0);
 
     if(socketID == INVALID_SOCKET) {
+        std::cout << WSAGetLastError() << std::endl;
         WSACleanup();
         throw std::runtime_error("Failed to create socket");
     } else {
         std::cout << "Socket created successfully" << std::endl;
     }
 
-    struct sockaddr_in addr = {
-        .sin_family = AF_INET,
-        .sin_port   = htons(8080),
-    };
+    sockaddr_in serverAddr;
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_port = htons(8080);
+    //serverAddr.sin_addr.s_addr = INADDR_ANY;
+    inet_pton(AF_INET, "127.0.0.1", &serverAddr.sin_addr);
+    int binderr = bind(socketID, (sockaddr*)&serverAddr, sizeof(serverAddr));
 
-    inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr);
+    if(binderr == SOCKET_ERROR) {
+        std::cout << WSAGetLastError() << std::endl;
+        closesocket(socketID);
+        WSACleanup();
+        throw std::runtime_error("Failed to bind socket");
+    } else {
+        std::cout << "Socket bound successfully" << std::endl;
+    }
 }
 
 Server::~Server() {
@@ -35,6 +45,29 @@ Server::~Server() {
     WSACleanup();
 }
 
-void Server::connect() {
-    // Connection implementation
+SOCKET Server::standby() {
+    int listenerr = listen(socketID, 1);
+
+    if(listenerr != 0) {
+        std::cout << WSAGetLastError() << std::endl;
+        closesocket(socketID);
+        WSACleanup();
+        throw std::runtime_error("Failed to listen");
+    } else {
+        std::cout << "listening";
+    }
+
+    SOCKET acceptSocket;
+    acceptSocket = accept(socketID, NULL, NULL);
+
+    if(acceptSocket == INVALID_SOCKET) {
+        std::cout << WSAGetLastError() << std::endl;
+        closesocket(socketID);
+        WSACleanup();
+        throw std::runtime_error("Failed to accept socket");
+    } else {
+        std::cout << "Created accept socket";
+    }
+
+    return acceptSocket;
 }

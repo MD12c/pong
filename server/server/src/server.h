@@ -4,6 +4,8 @@
 #include <ws2tcpip.h>
 #include <stdexcept>
 #include<iostream>
+// #include <thread>
+// #include <chrono>
 
 class Server {
 public:
@@ -12,5 +14,5 @@ public:
     Server();
     ~Server();
 
-    void connect();
+    SOCKET standby();
 };
