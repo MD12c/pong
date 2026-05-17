@@ -19,16 +19,32 @@ int main()
 	// Server Connections
 	#pragma region
 			Server server(55555);
-			SOCKET socketSpeaking = server.standby();
 
-			char recvBuffer[26] = {};
-			int recvByteCount = recv(socketSpeaking, recvBuffer, sizeof(recvBuffer), 0);
+			SOCKET socketSpeaking1 = server.standby();
+			char recvBuffer1[26] = {};
+			int recvByteCount1 = recv(socketSpeaking1, recvBuffer1, sizeof(recvBuffer1), 0);
 
-			if(recvByteCount == 0) {
+			if(recvByteCount1 == 0) {
 				std::cout << "No bytes recieved" << WSAGetLastError() << std::endl;
 			} else {
-				std::cout << "Bytes are recieved: " << recvByteCount << std::endl;
-				std::cout << recvBuffer << std::endl;
+				std::cout << "Bytes are recieved: " << recvByteCount1 << std::endl;
+				std::cout << recvBuffer1 << std::endl;
+
+				int8_t playerID = 1;
+				send(socketSpeaking1, (char*)&playerID, sizeof(playerID), 0);
+			}
+
+			SOCKET socketSpeaking2 = server.standby();
+			char recvBuffer2[26] = {};
+			int recvByteCount2 = recv(socketSpeaking2, recvBuffer2, sizeof(recvBuffer2), 0);
+			if(recvByteCount2 == 0) {
+				std::cout << "No bytes recieved" << WSAGetLastError() << std::endl;
+			} else {
+				std::cout << "Bytes are recieved: " << recvByteCount2 << std::endl;
+				std::cout << recvBuffer2 << std::endl;
+
+				int8_t playerID = 2;
+				send(socketSpeaking2, (char*)&playerID, sizeof(playerID), 0);
 			}
 
 	#pragma endregion
@@ -111,13 +127,17 @@ int main()
 
 		// Data Recieving
 		#pragma region
-		glm::vec2 bar1Pos = bar1.getPosition();
-		glm::vec2 bar2Pos = bar2.getPosition();
-		glm::vec2 ballPos = Ball::getPosition();
+			glm::vec2 bar1Pos = bar1.getPosition();
+			glm::vec2 bar2Pos = bar2.getPosition();
+			glm::vec2 ballPos = Ball::getPosition();
 
-		recv(socketSpeaking, (char*)&bar1Pos, sizeof(glm::vec2), 0);
-		bar1.m_model[3][0] = bar1Pos[0];
-		bar1.m_model[3][1] = bar1Pos[1];
+			recv(socketSpeaking1, (char*)&bar1Pos, sizeof(glm::vec2), 0);
+			bar1.m_model[3][0] = bar1Pos[0];
+			bar1.m_model[3][1] = bar1Pos[1];
+
+			recv(socketSpeaking2, (char*)&bar2Pos, sizeof(glm::vec2), 0);
+			bar2.m_model[3][0] = bar2Pos[0];
+			bar2.m_model[3][1] = bar2Pos[1];
 		#pragma endregion
 
 
@@ -129,7 +149,7 @@ int main()
 			bar1Text.Unbind(); bar1EBO.Unbind(); bar1VBO.Unbind(); bar1VAO.Unbind();
 
 			bar2VAO.Bind(); bar2VBO.Bind(); bar2EBO.Bind(); bar2Text.Bind();
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar2.translate(VIEWPORT.getWindow(), width, height, dT)));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar2.m_model));
 			glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 			bar2Text.Unbind(); bar2EBO.Unbind(); bar2VBO.Unbind(); bar2VAO.Unbind();
 
@@ -164,10 +184,11 @@ int main()
 		#pragma endregion
 
 
-		// Data transmission
+		// Data Sending
 		#pragma region
 			GameStatus crntGameStatus = server.getGameStatus(bar1Pos, bar2Pos, ballPos, 0);
-			send(socketSpeaking, (char*)&crntGameStatus, sizeof(GameStatus), 0);
+			send(socketSpeaking1, (char*)&crntGameStatus, sizeof(GameStatus), 0);
+			send(socketSpeaking2, (char*)&crntGameStatus, sizeof(GameStatus), 0);
 		#pragma endregion
 
 

@@ -23,11 +23,15 @@ int main()
 		char sendBuffer[26] = {"Connection established\n"};
 		int byteCoutSent = send(client.socketID, sendBuffer, sizeof(sendBuffer), 0);
 
+		uint8_t playerID;
+
 		if(byteCoutSent == 0) {
 			std::cout << "No bytes sent: " << WSAGetLastError() << std::endl;
 		} else {
 			std::cout << "Bytes are sent: " << byteCoutSent << std::endl;
 			std::cout << sendBuffer << std::endl;
+
+			recv(client.socketID, (char*)&playerID, sizeof(playerID), 0);
 		}
 	#pragma endregion
 
@@ -111,13 +115,23 @@ int main()
 			glm::vec2 bar1Pos = bar1.getPosition();
 			glm::vec2 bar2Pos = bar2.getPosition();
 			
-			send(client.socketID, (char*)&bar1Pos, sizeof(glm::vec2), 0);
+			if(playerID == 1) {
+				send(client.socketID, (char*)&bar1Pos, sizeof(glm::vec2), 0);
+			} else {
+				send(client.socketID, (char*)&bar2Pos, sizeof(glm::vec2), 0);
+			}
 		#pragma endregion
 
 		// visuals
 		#pragma region
+			if(playerID == 1) {
+				bar1.m_model = bar1.translate(VIEWPORT.getWindow(), width, height, dT);
+			} else {
+				bar2.m_model = bar2.translate(VIEWPORT.getWindow(), width, height, dT);
+			}
+
 			bar1VAO.Bind(); bar1VBO.Bind(); bar1EBO.Bind(); bar1Text.Bind();
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar1.translate(VIEWPORT.getWindow(), width, height, dT)));
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(bar1.m_model));
 			glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 			bar1Text.Unbind(); bar1EBO.Unbind(); bar1VBO.Unbind(); bar1VAO.Unbind();
 
@@ -136,8 +150,13 @@ int main()
 		#pragma region
 			GameStatus crntgamestatus;
 			recv(client.socketID, (char*)&crntgamestatus, sizeof(GameStatus), 0);
-			//bar1.m_model[3][1] = crntgamestatus.bar1Pos[1];
-			bar2.m_model[3][1] = crntgamestatus.bar2Pos[1];
+
+			if(playerID == 1) {
+				bar2.m_model[3][1] = crntgamestatus.bar2Pos[1];
+			} else {
+				bar1.m_model[3][1] = crntgamestatus.bar1Pos[1];
+			}
+
 			Ball::model[3][0] = crntgamestatus.ballPos[0];
 			Ball::model[3][1] = crntgamestatus.ballPos[1];
 		#pragma endregion
