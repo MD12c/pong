@@ -73,6 +73,7 @@ target_link_libraries(${PROJECT_NAME}
 )
 target_link_libraries(imgui PUBLIC glfw glad)
 
+target_link_libraries(pong PRIVATE ws2_32)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)

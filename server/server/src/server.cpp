@@ -13,6 +13,7 @@ Server::Server(int port) {
         std::cout << "Winsock initialized successfully" << std::endl;
     }
 
+    
     socketID = socket(AF_INET, SOCK_STREAM, 0);
 
     if(socketID == INVALID_SOCKET) {
@@ -23,6 +24,7 @@ Server::Server(int port) {
         std::cout << "Socket created successfully" << std::endl;
     }
 
+    
     sockaddr_in serverAddr;
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(port);
@@ -54,8 +56,9 @@ SOCKET Server::standby() {
         WSACleanup();
         throw std::runtime_error("Failed to listen");
     } else {
-        std::cout << "listening";
+        std::cout << "listening" << std::endl;
     }
+
 
     SOCKET acceptSocket;
     acceptSocket = accept(socketID, NULL, NULL);
@@ -66,7 +69,7 @@ SOCKET Server::standby() {
         WSACleanup();
         throw std::runtime_error("Failed to accept socket");
     } else {
-        std::cout << "Created accept socket";
+        std::cout << "Created accept socket" << std::endl;
     }
 
     return acceptSocket;

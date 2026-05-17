@@ -38,7 +38,10 @@ void Client::search() {
 
     if(connecterr != 0) {
         std::cout << WSAGetLastError() << std::endl;
-        WSACleanup;
+        closesocket(socketID);
+        WSACleanup();
         throw std::runtime_error("Failed to connect socket");
+    } else {
+        std::cout << "Connected" << std::endl;
     }
 }

@@ -35,5 +35,6 @@
 
 #include"bar.h"
 #include"ball.h"
+#include"client.h"
 
 // TODO: Reference additional headers your program requires here.
