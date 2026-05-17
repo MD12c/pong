@@ -106,14 +106,12 @@ int main()
 			dT = crntFrame - lastFrame;
 			lastFrame = crntFrame;
 
-		// Data Recieving
+		// Data sending
 		#pragma region
-			GameStatus crntgamestatus;
-			recv(client.socketID, (char*)&crntgamestatus, sizeof(GameStatus), 0);
-			//bar1.m_model[3][1] = crntgamestatus.bar1Pos[1];
-			bar2.m_model[3][1] = crntgamestatus.bar2Pos[1];
-			Ball::model[3][0] = crntgamestatus.ballPos[0];
-			Ball::model[3][1] = crntgamestatus.ballPos[1];
+			glm::vec2 bar1Pos = bar1.getPosition();
+			glm::vec2 bar2Pos = bar2.getPosition();
+			
+			send(client.socketID, (char*)&bar1Pos, sizeof(glm::vec2), 0);
 		#pragma endregion
 
 		// visuals
@@ -132,17 +130,16 @@ int main()
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(Ball::model));
 			glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 			ballText.Unbind(); ballEBO.Unbind(); ballVBO.Unbind(); ballVAO.Unbind();
-		#pragma endregion	
-
-		// Collision Physics
-		#pragma region
-			glm::vec2 bar1Pos = bar1.getPosition();
-			glm::vec2 bar2Pos = bar2.getPosition();
 		#pragma endregion
 
-		// Data sending
+		// Data Recieving
 		#pragma region
-			send(client.socketID, (char*)&bar1Pos, sizeof(glm::vec2), 0);
+			GameStatus crntgamestatus;
+			recv(client.socketID, (char*)&crntgamestatus, sizeof(GameStatus), 0);
+			//bar1.m_model[3][1] = crntgamestatus.bar1Pos[1];
+			bar2.m_model[3][1] = crntgamestatus.bar2Pos[1];
+			Ball::model[3][0] = crntgamestatus.ballPos[0];
+			Ball::model[3][1] = crntgamestatus.ballPos[1];
 		#pragma endregion
 
 			//ImGui::Begin("Template");

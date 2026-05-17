@@ -98,7 +98,6 @@ int main()
 		float dT = 0.0f;
 		float lastFrame = 0.0f;
 		glfwSetTime(0.0f);
-		glm::vec2 bar1PosClient = bar1.getPosition();
 
 		while (!glfwWindowShouldClose(VIEWPORT.getWindow())) {
 			VIEWPORT.glClearCurrentColor();
@@ -110,15 +109,17 @@ int main()
 			lastFrame = crntFrame;
 
 
-		// Data transmission
+		// Data Recieving
 		#pragma region
-			glm::vec2 bar1Pos = bar1.getPosition();
-			glm::vec2 bar2Pos = bar2.getPosition();
-			glm::vec2 ballPos = Ball::getPosition();
+		glm::vec2 bar1Pos = bar1.getPosition();
+		glm::vec2 bar2Pos = bar2.getPosition();
+		glm::vec2 ballPos = Ball::getPosition();
 
-			GameStatus crntGameStatus = server.getGameStatus(bar1Pos, bar2Pos, ballPos, 0);
-			send(socketSpeaking, (char*)&crntGameStatus, sizeof(GameStatus), 0);
+		recv(socketSpeaking, (char*)&bar1Pos, sizeof(glm::vec2), 0);
+		bar1.m_model[3][0] = bar1Pos[0];
+		bar1.m_model[3][1] = bar1Pos[1];
 		#pragma endregion
+
 
 		// Visuals
 		#pragma region
@@ -162,11 +163,11 @@ int main()
 			}
 		#pragma endregion
 
-		// Data Recieving
+
+		// Data transmission
 		#pragma region
-			recv(socketSpeaking, (char*)&bar1PosClient, sizeof(glm::vec2), 0);
-			bar1.m_model[3][0] = bar1PosClient[0];
-			bar1.m_model[3][1] = bar1PosClient[1];
+			GameStatus crntGameStatus = server.getGameStatus(bar1Pos, bar2Pos, ballPos, 0);
+			send(socketSpeaking, (char*)&crntGameStatus, sizeof(GameStatus), 0);
 		#pragma endregion
 
 
