@@ -74,3 +74,12 @@ SOCKET Server::standby() {
 
     return acceptSocket;
 }
+
+GameStatus Server::getGameStatus(glm::vec2 bar1Pos, glm::vec2 bar2Pos, glm::vec2 ballPos, int8_t gameState) {
+    GameStatus gameStatus;
+    gameStatus.bar1Pos = bar1Pos;
+    gameStatus.bar2Pos = bar2Pos;
+    gameStatus.ballPos = ballPos;
+    gameStatus.gameState = gameState;
+    return gameStatus;
+}

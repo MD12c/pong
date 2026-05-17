@@ -19,8 +19,8 @@ private:
     int m_goUpKey;
     int m_goDownKey;
     int m_ID;
-    glm::mat4 m_model = glm::mat4(1.0f);
 public:
+    glm::mat4 m_model = glm::mat4(1.0f);
     Bar(int goUpKey, int goDownKey, int ID);
     ~Bar();
 
