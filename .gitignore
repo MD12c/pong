@@ -372,9 +372,9 @@ build/
 out/
 
 # Dependencies/Libraries
-lib/
-include/
-*.lib
+#lib/
+#include/
+#*.lib
 *.a
 
 # Compiled binaries

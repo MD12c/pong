@@ -111,6 +111,8 @@ int main()
 		glUniform3fv(colorLoc, 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
 	#pragma endregion
 		
+	// Game start
+		std::cin.get();
 		float dT = 0.0f;
 		float lastFrame = 0.0f;
 		glfwSetTime(0.0f);
