@@ -32,7 +32,11 @@ Client::~Client() {
 void Client::search(bool local) {
     sockaddr_in clientAddr;
     clientAddr.sin_family = AF_INET;
-    inet_pton(AF_INET, "127.0.0.1", &clientAddr.sin_addr);
+    if(local) {
+        inet_pton(AF_INET, "127.0.0.1", &clientAddr.sin_addr);
+    } else {
+        inet_pton(AF_INET, "192.168.0.65", &clientAddr.sin_addr);
+    }
     clientAddr.sin_port = htons(55555);
     int connecterr = connect(socketID, (SOCKADDR*)&clientAddr, sizeof(clientAddr));
 
