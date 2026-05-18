@@ -23,7 +23,7 @@ struct GameStatus {
 class Server {
 public:
     SOCKET socketID = INVALID_SOCKET;
-    Server(int port);
+    Server(int port, bool local);
     ~Server();
 
     SOCKET standby();

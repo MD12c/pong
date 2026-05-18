@@ -18,7 +18,7 @@ int main()
 
 	// Server Connections
 	#pragma region
-			Server server(55555);
+			Server server(55555, 0);
 
 			SOCKET socketSpeaking1 = server.standby();
 			char recvBuffer1[26] = {};

@@ -23,5 +23,5 @@ public:
     Client();
     ~Client();
 
-    void search();
+    void search(bool local);
 };

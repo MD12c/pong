@@ -29,7 +29,7 @@ Client::~Client() {
     WSACleanup();
 }
 
-void Client::search() {
+void Client::search(bool local) {
     sockaddr_in clientAddr;
     clientAddr.sin_family = AF_INET;
     inet_pton(AF_INET, "127.0.0.1", &clientAddr.sin_addr);

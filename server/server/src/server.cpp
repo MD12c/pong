@@ -1,7 +1,7 @@
 #include"server.h"
 
 
-Server::Server(int port) {
+Server::Server(int port, bool local) {
     WSADATA wsaData;
     int wsaerr;
     WORD wVersionRequested = MAKEWORD(2, 2);
@@ -24,21 +24,38 @@ Server::Server(int port) {
         std::cout << "Socket created successfully" << std::endl;
     }
 
-    
-    sockaddr_in serverAddr;
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(port);
-    //serverAddr.sin_addr.s_addr = INADDR_ANY;
-    inet_pton(AF_INET, "127.0.0.1", &serverAddr.sin_addr);
-    int binderr = bind(socketID, (sockaddr*)&serverAddr, sizeof(serverAddr));
+    if(local) {
+        sockaddr_in serverAddr;
+        serverAddr.sin_family = AF_INET;
+        serverAddr.sin_port = htons(port);
+        //serverAddr.sin_addr.s_addr = INADDR_ANY;
+        inet_pton(AF_INET, "127.0.0.1", &serverAddr.sin_addr);
+        int binderr = bind(socketID, (sockaddr*)&serverAddr, sizeof(serverAddr));
 
-    if(binderr == SOCKET_ERROR) {
-        std::cout << WSAGetLastError() << std::endl;
-        closesocket(socketID);
-        WSACleanup();
-        throw std::runtime_error("Failed to bind socket");
+        if(binderr == SOCKET_ERROR) {
+            std::cout << WSAGetLastError() << std::endl;
+            closesocket(socketID);
+            WSACleanup();
+            throw std::runtime_error("Failed to bind socket");
+        } else {
+            std::cout << "Socket bound successfully" << std::endl;
+        }
     } else {
-        std::cout << "Socket bound successfully" << std::endl;
+        sockaddr_in serverAddr;
+        serverAddr.sin_family = AF_INET;
+        serverAddr.sin_port = htons(port);
+        serverAddr.sin_addr.s_addr = INADDR_ANY;
+        //inet_pton(AF_INET, "192.168.0.65", &serverAddr.sin_addr);
+        int binderr = bind(socketID, (sockaddr*)&serverAddr, sizeof(serverAddr));
+
+        if(binderr == SOCKET_ERROR) {
+            std::cout << WSAGetLastError() << std::endl;
+            closesocket(socketID);
+            WSACleanup();
+            throw std::runtime_error("Failed to bind socket");
+        } else {
+            std::cout << "Socket bound successfully" << std::endl;
+        }
     }
 }
 
