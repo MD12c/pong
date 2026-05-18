@@ -19,7 +19,7 @@ int main()
 	// Client Connection
 	#pragma region
 		Client client;
-		client.search();
+		client.search(0); // 1 all clients on the same machine 2 all clients on the same local network
 		char sendBuffer[26] = {"Connection established\n"};
 		int byteCoutSent = send(client.socketID, sendBuffer, sizeof(sendBuffer), 0);
 

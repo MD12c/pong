@@ -112,7 +112,7 @@ int main()
 	#pragma endregion
 		
 	// Game start
-		std::cin.get();
+		//std::cin.get();
 		float dT = 0.0f;
 		float lastFrame = 0.0f;
 		glfwSetTime(0.0f);
@@ -166,7 +166,7 @@ int main()
 		#pragma region
 			if(Ball::model[3][0] + ballD/2 < -1 || Ball::model[3][0] - ballD/2 > 1) {
 				std::cout << "\nGame over" << std::endl;
-				break;
+				//break;
 			}
 
 			// outside x
